@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'atendance.dart';
-import 'order.dart';
+import 'atendanceView.dart';
+import 'orderView.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.blue,
       ),
       home: DefaultTabController(
         length: 2,
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
           ),
           body: TabBarView(
             children: <Widget>[
-              AtendanceList(title: "出席表"),
-              OrderList(title: "LT順"),
+              AtendanceView(title: "出席表"),
+              OrderView(title: "LT順"),
             ],
           ),
         ),
