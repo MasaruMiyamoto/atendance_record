@@ -26,6 +26,11 @@ class _AtendanceViewState extends State<AtendanceView> {
     });
   }
 
+  Member test1 = new Member("name1", false, "comName");
+  Member test2 = new Member("name2", false, "comName");
+  List<Member> testList = new List(100);
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,15 +47,18 @@ class _AtendanceViewState extends State<AtendanceView> {
       ],
       ),
       body: ListView.builder( //出席表を表示
-        padding:  const EdgeInsets.all(16.0),        
-        itemBuilder: (context, cnt){
-          Member test = new Member("name : "+cnt.toString(),false, "comName");
+        padding:  const EdgeInsets.all(16.0),
+        itemBuilder: (context, cnt,){
           return ListTile(
             title: Text(
-              test.name + " + " + test.conpassName,
+              testList[cnt].name + " + " + testList[cnt].conpassName,
             ),
           );
         },
+        //表示するスクロールリストの上限数設定
+        //出席者リスト数を設定すればOK
+        itemCount: testList.length,
+        
       ),
     );
   }

@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
           ),
           body: TabBarView(
             children: <Widget>[
-              AtendanceView(title: "出席表"),
-              OrderView(title: "LT順"),
+              AtendanceView(title: "Atendance List"),
+              OrderView(title: "Lightning Talk Order"),
             ],
           ),
         ),
