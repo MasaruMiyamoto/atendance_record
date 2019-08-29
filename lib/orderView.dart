@@ -13,7 +13,7 @@ class OrderView extends StatefulWidget {
 
 class _OrderViewState extends State<OrderView> {
 
-  final double _textFontSize = 10.0;
+  final double _textFontSize = 8.0;
 
   @override
   Widget build(BuildContext context) {

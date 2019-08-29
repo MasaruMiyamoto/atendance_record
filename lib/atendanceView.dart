@@ -13,28 +13,22 @@ class AtendanceView extends StatefulWidget {
 }
 
 class _AtendanceViewState extends State<AtendanceView> {
-  int _counter = 0;
-
-  //出席者をリストで持たせる
-  // _Atendance atendances[];
-
-  //出席者数のカウント
-  //TODO 出席情報クラスを作ってそっちで管理した方がよくない？？
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  Member test1 = new Member("name1", false, "comName");
-  Member test2 = new Member("name2", false, "comName");
-  List<Member> testList = new List(100);
-
+  
+  List<Member> _testList = new List<Member>();
+  Member _test = new Member("name", false, "compassName");
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(
+      appBar: _createAppBar(),
+      body: _createListView(),
+    );
+  }
+
+  //AppBarを設定
+  AppBar _createAppBar() {
+    return AppBar(
         title: Text(widget.title),
         actions: <Widget>[
           IconButton(
@@ -42,24 +36,32 @@ class _AtendanceViewState extends State<AtendanceView> {
             tooltip: 'Show Snackbar',
             onPressed: () {
               print('button push');
+              setState((){
+                _testList.add(_test);
+              });
             },
           ),
       ],
-      ),
-      body: ListView.builder( //出席表を表示
-        padding:  const EdgeInsets.all(16.0),
-        itemBuilder: (context, cnt,){
-          return ListTile(
-            title: Text(
-              testList[cnt].name + " + " + testList[cnt].conpassName,
-            ),
-          );
-        },
-        //表示するスクロールリストの上限数設定
-        //出席者リスト数を設定すればOK
-        itemCount: testList.length,
-        
-      ),
     );
   }
+
+  //出席者リストを表示
+  ListView _createListView(){
+    return ListView.builder(
+      padding:  const EdgeInsets.all(16.0),
+      itemBuilder: (context, cnt,){
+        return ListTile(
+          title: Text(
+            "row num :" + cnt.toString() + " , " 
+            + _testList[cnt].name + " , " 
+            + _testList[cnt].conpassName
+          ),
+        );
+      },
+      //表示するスクロールリストの上限数設定
+      //出席者リスト数を設定すればOK
+      itemCount: _testList.length,
+    );
+  }
+
 }
