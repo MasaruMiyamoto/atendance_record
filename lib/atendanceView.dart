@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 //出席者リスト画面
 class AtendanceView extends StatefulWidget {
+  //コンストラクタ
   AtendanceView({Key key, this.title}) : super(key: key);
 
   final String title;
@@ -14,12 +15,17 @@ class AtendanceView extends StatefulWidget {
 
 class _AtendanceViewState extends State<AtendanceView> {
   
-  List<Member> _testList = new List<Member>();
-  Member _test = new Member("name", false, "compassName");
+  //出席者リスト
+  List<Member> _atendanceList = new List<Member>();
+
+  //メンバーの設定
+  //最終的に画面で設定した出席者をリストに格納する。
+  Member _member = new Member("name", false, "compassName");
 
   @override
   Widget build(BuildContext context) {
 
+    //土台の作成
     return Scaffold(
       appBar: _createAppBar(),
       body: _createListView(),
@@ -30,14 +36,17 @@ class _AtendanceViewState extends State<AtendanceView> {
   AppBar _createAppBar() {
     return AppBar(
         title: Text(widget.title),
+        //AppBar右上にアプリバーを設置
+        //＋ボタンを押下することで、出席者を追加する。（未実装）
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
             tooltip: 'Show Snackbar',
             onPressed: () {
+              //出席者リストを更新
               print('button push');
               setState((){
-                _testList.add(_test);
+                _atendanceList.add(_member);
               });
             },
           ),
@@ -53,14 +62,15 @@ class _AtendanceViewState extends State<AtendanceView> {
         return ListTile(
           title: Text(
             "row num :" + cnt.toString() + " , " 
-            + _testList[cnt].name + " , " 
-            + _testList[cnt].conpassName
+            + _atendanceList[cnt].name + " , " 
+            + _atendanceList[cnt].conpassName
           ),
         );
       },
       //表示するスクロールリストの上限数設定
       //出席者リスト数を設定すればOK
-      itemCount: _testList.length,
+      itemCount: _atendanceList.length,
+      
     );
   }
 
