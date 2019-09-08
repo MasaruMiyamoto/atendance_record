@@ -18,9 +18,8 @@ class RapidoExample extends StatefulWidget {
 class _RapidoExampleState extends State<RapidoExample> {
   final DocumentList documentList = DocumentList(
     "task list",
-    labels: {"チェック": "done ?", "開始日": "date", "タイトル": "task", "優先度": "pri count", "ノート": "note"},
+    labels: {"出席":"done?","開始日": "date", "タイトル": "task", "優先度": "pri count", "ノート": "note"},
   );
-
   @override
   Widget build(BuildContext context) {
     return DocumentListScaffold(
@@ -31,9 +30,9 @@ class _RapidoExampleState extends State<RapidoExample> {
       // //subtitleKeyは複数行表示可能
       // subtitleKey: "note",
       //デザインの変更
-      decoration: BoxDecoration(color: Colors.orange),
+      // decoration: BoxDecoration(color: Colors.orange),
       //項目の表示変更。titleKeyとsubtitleKeyとの併用はできない。
-      // customItemBuilder: _customBuilder,
+      customItemBuilder: _customBuilder,
       emptyListWidget: Center(
         child: Text(
           "ボタンを押してタスクを追加",
@@ -47,20 +46,15 @@ class _RapidoExampleState extends State<RapidoExample> {
     return Card(
       child: Row(
         children: <Widget>[
-          // Padding(
-          //   padding: EdgeInsets.all(8.0),
-          //   child: Text(documentList[index]["pri count"].toString(),
-          //     style: Theme.of(context).textTheme.display1),
-          // ),
           Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text(          
-              documentList[index]["complete"],
-            ),
+            child: Text(documentList[index]["pri count"].toString(),
+              style: Theme.of(context).textTheme.display1),
           ),
           Expanded(
             child: Column(
               children: <Widget>[
+                Text(documentList[index]["done?"].toString()),
                 Text(documentList[index]["task"],style: Theme.of(context).textTheme.title),
                 Text(documentList[index]["date"].toString()),
                 Padding(
@@ -73,7 +67,8 @@ class _RapidoExampleState extends State<RapidoExample> {
           DocumentActionsButton(documentList, index: index)
         ],
       ),
-      color: _calculateColor(documentList[index]["pri count"]),
+      // color: _calculateColor(documentList[index]["pri count"]),
+      color: Colors.cyan,
     );
   }
 

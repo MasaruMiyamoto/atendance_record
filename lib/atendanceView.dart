@@ -57,21 +57,46 @@ class _AtendanceViewState extends State<AtendanceView> {
   //出席者リストを表示
   ListView _createListView(){
     return ListView.builder(
-      padding:  const EdgeInsets.all(16.0),
+      padding:  const EdgeInsets.all(10.0),
       itemBuilder: (context, cnt,){
-        return ListTile(
-          title: Text(
-            "row num :" + cnt.toString() + " , " 
-            + _atendanceList[cnt].name + " , " 
-            + _atendanceList[cnt].conpassName
-          ),
-        );
+        // return _formatMenberInfo(cnt);
+        return _createCenter(cnt);
       },
       //表示するスクロールリストの上限数設定
       //出席者リスト数を設定すればOK
       itemCount: _atendanceList.length,
       
+      
     );
+  }
+
+   Center _createCenter(int index){
+    return Center(
+      child: Card(
+        margin: EdgeInsets.all(10.0),
+        // color: Colors.red,
+        child: Column(
+          children: <Widget>[
+            Text(_atendanceList[index].name),
+            Text(_atendanceList[index].conpassName),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+
+
+  //index番目の出席者情報を取得
+  ListTile _formatMenberInfo(int index) {
+    return ListTile(
+          title: Text(
+            "row num :" + index.toString() + " , " 
+            + _atendanceList[index].name + " , " 
+            + _atendanceList[index].conpassName
+          ),
+        );
   }
 
 }
