@@ -60,33 +60,35 @@ class _AtendanceViewState extends State<AtendanceView> {
       padding:  const EdgeInsets.all(10.0),
       itemBuilder: (context, cnt,){
         // return _formatMenberInfo(cnt);
-        return _createCenter(cnt);
+        return _createCard(cnt);
       },
       //表示するスクロールリストの上限数設定
       //出席者リスト数を設定すればOK
       itemCount: _atendanceList.length,
-      
-      
     );
   }
 
-   Center _createCenter(int index){
-    return Center(
-      child: Card(
-        margin: EdgeInsets.all(10.0),
-        // color: Colors.red,
-        child: Column(
-          children: <Widget>[
-            Text(_atendanceList[index].name),
-            Text(_atendanceList[index].conpassName),
-          ],
-        ),
+   //出席者情報カードの作成
+   Card _createCard(int index){
+    const _FONT_SCALE_SIZE  = 1.5;
+    return Card(
+      margin: EdgeInsets.all(15.0),
+      //カードの配置
+      child: Row(
+        children: <Widget>[
+          //チェックボックス
+          _createAtendanceCheck(index),
+          //情報
+          Column(
+            children: <Widget>[
+              Text(_atendanceList[index].name, textScaleFactor: _FONT_SCALE_SIZE),
+              Text(_atendanceList[index].conpassName, textScaleFactor: _FONT_SCALE_SIZE),
+            ],
+          ),
+        ],
       ),
     );
   }
-
-
-
 
   //index番目の出席者情報を取得
   ListTile _formatMenberInfo(int index) {
@@ -99,4 +101,14 @@ class _AtendanceViewState extends State<AtendanceView> {
         );
   }
 
+  Checkbox _createAtendanceCheck(int index){
+    return Checkbox(
+      value: _atendanceList[index].ltFlg,
+        onChanged: (bool changeBool){
+          setState(() {
+            _atendanceList[index].ltFlg = changeBool;
+        });
+      },
+    );
+  }
 }
