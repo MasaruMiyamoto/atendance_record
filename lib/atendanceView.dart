@@ -8,7 +8,6 @@ class AtendanceView extends StatefulWidget {
 
   final String title;
 
-  //TODO 何をオーバーライトしてるの？
   @override
   _AtendanceViewState createState() => _AtendanceViewState();
 }
@@ -18,12 +17,11 @@ class _AtendanceViewState extends State<AtendanceView> {
   //出席者リスト
   List<Member> _atendanceList = new List<Member>();
 
-  //メンバーの設定
-  //最終的に画面で設定した出席者をリストに格納する。
-  Member _member = new Member("name", false, "compassName");
-
   @override
   Widget build(BuildContext context) {
+
+    //出席者リストの初期化
+    initAtendanceList();
 
     //土台の作成
     return Scaffold(
@@ -46,7 +44,8 @@ class _AtendanceViewState extends State<AtendanceView> {
               //出席者リストを更新
               print('button push');
               setState((){
-                _atendanceList.add(_member);
+                //TODO ユーザー追加画面を表示
+                  print('call button');
               });
             },
           ),
@@ -72,7 +71,7 @@ class _AtendanceViewState extends State<AtendanceView> {
    Card _createCard(int index){
     const _FONT_SCALE_SIZE  = 1.5;
     return Card(
-      margin: EdgeInsets.all(15.0),
+      margin: EdgeInsets.all(5.0),
       //カードの配置
       child: Row(
         children: <Widget>[
@@ -82,7 +81,6 @@ class _AtendanceViewState extends State<AtendanceView> {
           Column(
             children: <Widget>[
               Text(_atendanceList[index].name, textScaleFactor: _FONT_SCALE_SIZE),
-              Text(_atendanceList[index].conpassName, textScaleFactor: _FONT_SCALE_SIZE),
             ],
           ),
         ],
@@ -90,15 +88,10 @@ class _AtendanceViewState extends State<AtendanceView> {
     );
   }
 
-  //index番目の出席者情報を取得
-  ListTile _formatMenberInfo(int index) {
-    return ListTile(
-          title: Text(
-            "row num :" + index.toString() + " , " 
-            + _atendanceList[index].name + " , " 
-            + _atendanceList[index].conpassName
-          ),
-        );
+  void initAtendanceList(){
+    _atendanceList.add(new Member("name1", true, "compassName1"));
+    _atendanceList.add(new Member("name2", false, "compassName2"));
+    _atendanceList.add(new Member("name3", true, "compassName3"));
   }
 
   Checkbox _createAtendanceCheck(int index){
