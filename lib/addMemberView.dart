@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'member.dart';
 
 class AddMemberView extends StatefulWidget {
+  final Member member;
+
+  AddMemberView({this.member});
+
   @override
   _AddMemberViewState createState() => _AddMemberViewState();
 
@@ -13,7 +17,7 @@ class _AddMemberViewState extends State<AddMemberView> {
   bool _isCheck = false;
 
   bool checkInput() {
-    if (_nameController.text.isNotEmpty && _conpassNameController.text.isNotEmpty){
+    if (_nameController.text.isNotEmpty){
       return true;
     }
     return false;
@@ -24,6 +28,16 @@ class _AddMemberViewState extends State<AddMemberView> {
       return null;
     }
     return Member(_nameController.text, _conpassNameController.text, _isCheck);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.member != null) {
+      _isCheck = widget.member.isLt();
+      _nameController.text = widget.member.getName();
+      _conpassNameController.text = widget.member.getConpassName();
+    }
   }
 
   @override

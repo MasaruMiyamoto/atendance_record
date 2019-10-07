@@ -1,4 +1,5 @@
 import 'package:atendance_record/addMemberView.dart';
+import 'package:atendance_record/ltListView.dart';
 import 'package:atendance_record/member.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class _AtendanceViewState extends State<AtendanceView> {
   @override
   void initState() {
     super.initState();
-    print('call init');
+    // print('call init');
     //出席者リストの初期化
     _initAtendanceList();
   }
@@ -43,6 +44,10 @@ class _AtendanceViewState extends State<AtendanceView> {
             setState(() {
               //TODO ユーザー追加画面を表示
               print('push menu');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LtListView())
+              );
             });
           },
         ),
@@ -115,12 +120,31 @@ class _AtendanceViewState extends State<AtendanceView> {
             textScaleFactor: _FONT_SCALE_SIZE
           ),
           SizedBox(width: 3.0,),
-          IconButton(
-            icon: Icon(Icons.edit),
-            color: Colors.cyan,
-            onPressed: () {
-              _callAddMemberPage(context);
+          PopupMenuButton<int>(
+            onSelected: (int action) {
+              switch (action) {
+                case 0:
+                  print('push edit icon');
+                  _callEditMemberPage(context, index);
+                  break;
+                case 1:
+                  print('push delete icon');
+                  setState(() {
+                    _atendanceList.removeAt(index);
+                  });
+                  break;
+              }
             },
+            itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
+              PopupMenuItem<int>(
+                value: 0,
+                child: Icon(Icons.edit),
+              ),
+              PopupMenuItem<int>(
+                value: 1,
+                child: Icon(Icons.delete),
+              ),
+            ],
           ),
         ],
       ),
@@ -138,6 +162,18 @@ class _AtendanceViewState extends State<AtendanceView> {
       _atendanceList.add(result);
     }
 
+  }
+
+  void _callEditMemberPage(BuildContext context, int index) async{
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddMemberView(member: _atendanceList[index],))
+    );
+
+    print('result = $result');
+    if (result != null){
+      _atendanceList[index] = result;
+    }
   }
 
   void _initAtendanceList() {
